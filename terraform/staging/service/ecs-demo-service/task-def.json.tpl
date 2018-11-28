@@ -17,12 +17,7 @@
   "command": null,
   "linuxParameters": null,
   "cpu": 0,
-  "environment": [
-       {
-          "name": "ENVS_PATH",
-          "value": "/staging/ops-exp/promotion/envs"
-        }
-  ],
+  "environment": [],
   "ulimits": null,
   "dnsServers": null,
   "mountPoints": [],
@@ -31,7 +26,7 @@
   "memory": 2500,
   "memoryReservation": 512,
   "volumesFrom": [],
-  "image": "083052042026.dkr.ecr.eu-west-1.amazonaws.com/general/promotion:latest",
+  "image": "418754825935.dkr.ecr.eu-west-1.amazonaws.com/demo-service:latest",
   "disableNetworking": null,
   "healthCheck": null,
   "essential": true,

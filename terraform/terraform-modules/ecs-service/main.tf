@@ -3,6 +3,10 @@ locals {
   disabled = "${var.redirect_http_to_https == "true" ? 0 : 1}"
 }
 
+resource "aws_ecr_repository" "this" {
+  name = "${var.name}"
+}
+
 resource "aws_iam_role" "task_role" {
   name = "${var.name}-task-role"
 
@@ -62,28 +66,6 @@ resource "aws_alb_target_group" "this" {
   tags = "${var.tags}"
 }
 
-resource "aws_lb_listener_rule" "redirect_http_to_https" {
-  count        = "${length(var.values) * local.enabled}"
-  listener_arn = "${var.http_listener_arn}"
-
-  action {
-    type = "redirect"
-
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
-  }
-
-  condition {
-    field  = "host-header"
-    values = ["${var.values[count.index]}"]
-  }
-
-  depends_on = ["aws_alb_target_group.this"]
-}
-
 resource "aws_alb_listener_rule" "http" {
   count        = "${length(var.values) * local.disabled}"
   listener_arn = "${var.http_listener_arn}"
@@ -137,9 +119,6 @@ resource "aws_ecs_service" "this" {
     ignore_changes = ["desired_count"]
   }
   depends_on = ["aws_iam_role_policy.service_role_policy"]
-  provisioner "local-exec" {
-    command = "../../../scripts/check_health.sh ${aws_alb_target_group.this.arn}"
-  }
 }
 
 resource "aws_cloudwatch_log_group" "this" {

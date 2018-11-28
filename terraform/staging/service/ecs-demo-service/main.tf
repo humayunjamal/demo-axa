@@ -19,7 +19,7 @@ data "template_file" "task_definition" {
   template = "${file("./task-def.json.tpl")}"
 }
 
-module "ecs_promotion" {
+module "ecs_demo_service" {
   source = "../../../terraform-modules/ecs-service"
 
   cluster                   = "Demo-Cluster"
@@ -30,7 +30,7 @@ module "ecs_promotion" {
   max_capacity              = 4
   vpc_id                    = "${data.aws_vpc.net.id}"
   health_check_path         = "/"
-  https_listener_arn        = "${data.terraform_remote_state.base.https_listener_arn[0]}"
+  http_listener_arn         = "${data.terraform_remote_state.base.http_listener_arn[0]}"
   values                    = ["demo.axa.com"]
   metric_name               = ["ECSServiceAverageMemoryUtilization"]
   metric_target_value       = [90]

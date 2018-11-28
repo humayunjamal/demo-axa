@@ -25,6 +25,8 @@ variable "min_capacity" {
   default = 1
 }
 
+variable "http_listener_arn" {}
+
 variable "max_capacity" {
   default = 1
 }
@@ -76,12 +78,9 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
-variable "http_listener_arn" {
-  description = "listener arn for http"
-}
-
 variable "https_listener_arn" {
   description = "listener arn for https"
+  default     = "not being used"
 }
 
 variable "values" {
