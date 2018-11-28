@@ -30,9 +30,57 @@ module "sg_rdm_instance" {
   tags = "${local.tags}"
 }
 
+resource "aws_iam_instance_profile" "this" {
+  name = "jenkins"
+  role = "${aws_iam_role.jenkins_role.name}"
+}
+
+resource "aws_iam_role" "jenkins_role" {
+  name = "jenkins_role"
+  path = "/"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "jenkins_role_policy" {
+  name = "jenkins-Role-Policy"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+
+  role = "${aws_iam_role.jenkins_role.id}"
+}
+
 module "ec2_jenkins" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "1.5.0"
+  source               = "terraform-aws-modules/ec2-instance/aws"
+  version              = "1.5.0"
+  iam_instance_profile = "${aws_iam_instance_profile.this.name}"
 
   name           = "jenkins-instance"
   key_name       = "demo-axa"
