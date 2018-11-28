@@ -31,7 +31,7 @@ module "ecs_demo_service" {
   vpc_id                    = "${data.aws_vpc.net.id}"
   health_check_path         = "/"
   http_listener_arn         = "${data.terraform_remote_state.base.http_listener_arn[0]}"
-  values                    = ["demo.axa.com"]
+  values                    = ["demo-service.demo-axa.co.uk"]
   metric_name               = ["ECSServiceAverageMemoryUtilization"]
   metric_target_value       = [90]
   enable_alb_req_scaling    = false
@@ -76,4 +76,14 @@ EOF
 EOF
 
   container_definitions = "${data.template_file.task_definition.rendered}"
+}
+
+module "ecs-dns" {
+  source       = "../../../terraform-modules/route53-record"
+  name         = "demo-service.demo-axa.co.uk"
+  zone_id      = "Z242LQEATFMMTA"
+  type         = "CNAME"
+  ttl          = "300"
+  create_alias = false
+  records      = ["${data.terraform_remote_state.base.alb_dns_name}"]
 }
