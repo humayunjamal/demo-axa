@@ -54,11 +54,11 @@ variable "health_check_protocol" {
 }
 
 variable "health_check_interval" {
-  default = 30
+  default = 6
 }
 
 variable "health_check_timeout" {
-  default = 10
+  default = 5
 }
 
 variable "health_check_healthy_threshold" {
