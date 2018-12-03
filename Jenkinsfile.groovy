@@ -62,6 +62,7 @@ pipeline {
         sh """
         pwd
         ls -ltrh
+        ./deploy.sh
         """
       }
     }
