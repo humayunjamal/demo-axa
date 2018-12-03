@@ -26,7 +26,6 @@ pipeline {
     stage('CREATE UAT ENVIRONMENT') {    
       steps {
         echo "Running Terraform to create UAT ENVIRONMENT"
-        echo "Starting deployment on ENVIRONMENT ${deploy}"
         sh """
         pwd
         ./deploy_uat.sh
