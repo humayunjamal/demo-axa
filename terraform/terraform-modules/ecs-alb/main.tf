@@ -3,7 +3,7 @@ resource "aws_alb" "this" {
   subnets                    = ["${var.subnet_ids}"]
   security_groups            = ["${aws_security_group.this.id}"]
   internal                   = "${var.alb_internal}"
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   tags = "${var.tags}"
 }

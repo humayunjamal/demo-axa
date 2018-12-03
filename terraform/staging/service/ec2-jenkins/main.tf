@@ -86,7 +86,7 @@ module "ec2_jenkins" {
   key_name       = "demo-axa"
   instance_count = 1
 
-  ami                         = "ami-0b5b6c002799c961b"
+  ami                         = "ami-06f0f402c59e0289b"
   instance_type               = "t2.medium"
   associate_public_ip_address = true
   monitoring                  = false
