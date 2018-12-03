@@ -4,11 +4,6 @@ pipeline {
     disableConcurrentBuilds()
   }
   stages {
-    stage('Start') {
-      steps {
-        slackSend(color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-      }
-    }
     stage('CREATE TEMP ENV') {
       steps {
         sh "echo Creating local ENVIRONMENT for testing"
@@ -33,10 +28,18 @@ pipeline {
         echo "Running Terraform to create UAT ENVIRONMENT"
         echo "Starting deployment on ENVIRONMENT ${deploy}"
         sh """
+        pwd
+        ./deploy_uat.sh
         cd terraform/staging/service/ecs-demo-service-uat
-        terraform init 
-        terraform apply -auto-approve
+        /usr/bin/terraform init
+        terraform plan
         """
+        
+      }
+    }
+
+    stage('DEPLOY TO UAT ENVIRONMENT') {    
+      steps {
         echo "Starting deployment on UAT ENVIRONMENT"
         sh """
         ecs-deploy -c Demo-Cluster -n ecs-demo-service-uat -to latest -i ecs-demo-service-uat -t 300 

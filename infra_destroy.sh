@@ -1,11 +1,7 @@
 #!/bin/bash -x
 
-cd terraform/staging/
-terraform init
-terraform apply -auto-approve
 
-
-cd service/ecs-infra
+cd terraform/staging/service/ec2-jenkins
 
 terraform init
 terraform apply -auto-approve
@@ -21,8 +17,12 @@ cd ../ecs-demo-service-uat
 terraform init
 terraform apply -auto-approve
 
-cd ../ec2-jenkins
+cd ../ecs-infra
 
 terraform init
 terraform apply -auto-approve
 
+cd ../../
+
+terraform init
+terraform apply -auto-approve
