@@ -41,11 +41,20 @@ pipeline {
       steps {
         echo "Starting deployment on UAT ENVIRONMENT"
         sh """
-        ecs-deploy -c Demo-Cluster -n ecs-demo-service-uat -to latest -i ecs-demo-service-uat --region eu-west-1 
+        ecs-deploy -c Demo-Cluster -n demo-service-uat -to latest -i demo-service-uat --region eu-west-1 
         """
 
       }
     }
+
+    stage('TESTING UAT ENVIRONMENT') {    
+      steps {
+        echo "Starting UAT ENVIRONMENT TESTS"
+        sh "sleep 5"
+
+      }
+    }
+
      stage('DEPLOY TO PROD') {
    
       steps {
