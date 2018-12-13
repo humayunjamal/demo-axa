@@ -51,8 +51,8 @@ pipeline {
         stage('TESTING UAT ENVIRONMENT') {
             steps {
                 echo "Starting UAT ENVIRONMENT TESTS"
-                sh "sleep 5"
-//                sh "bash -x ./test/demo.sh"
+                //sh "sleep 5"
+                sh "bash -x ./test/demo.sh"
 
             }
         }
