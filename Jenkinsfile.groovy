@@ -49,7 +49,7 @@ pipeline {
             steps {
                 echo "Starting UAT ENVIRONMENT TESTS"
                 sh "sleep 5"
-                sh "bash -x ./test/demo.sh"
+                //sh "bash -x ./test/demo.sh"
 
             }
         }
@@ -69,20 +69,20 @@ pipeline {
 
     }
     post {
-    success {
+        success {
 
-         echo "success"
-      
-    }
+            echo "success"
 
-    failure {
-        echo "failure"
-      
-    }
-   cleanup{
-        deleteDir()
-    }
+        }
 
-  }
+        failure {
+            echo "failure"
+
+        }
+        cleanup {
+            deleteDir()
+        }
+
+    }
 }
 
