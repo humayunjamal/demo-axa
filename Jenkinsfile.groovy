@@ -42,7 +42,7 @@ pipeline {
             steps {
                 echo "Starting deployment on UAT ENVIRONMENT"
                 sh """
-        ecs-deploy -c Demo-Cluster -n demo-service-uat -to latest -i demo-service-uat --region eu-west-1 
+                ./deploy_uat.sh
         """
 
             }
@@ -64,7 +64,7 @@ pipeline {
                 sh """
         pwd
         ls -ltrh
-        ecs-deploy -c Demo-Cluster -n demo-service -to latest -i demo-service --region eu-west-1 
+        ./deploy.sh
 
         """
             }
