@@ -16,4 +16,10 @@ docker build -t ${AWS_ACCOUNT}.dkr.ecr.eu-west-1.amazonaws.com/demo-service:late
 docker push ${AWS_ACCOUNT}.dkr.ecr.eu-west-1.amazonaws.com/demo-service:latest
 
 
-ecs-deploy -c $ECS_CLUSTER -n $SERVICE_NAME -to latest -i $IMAGE_NAME -t 300 
+# ecs-deploy -c $ECS_CLUSTER -n $SERVICE_NAME -to latest -i $IMAGE_NAME -t 300 
+
+
+cd terraform/staging/service/ecs-demo-service
+terraform init
+terraform apply -auto-approve
+
