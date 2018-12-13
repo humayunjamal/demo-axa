@@ -29,10 +29,7 @@ pipeline {
                 echo "Running Terraform to create UAT ENVIRONMENT"
                 sh """
         pwd
-        ./deploy_uat.sh
-        cd terraform/staging/service/ecs-demo-service-uat
-        /usr/bin/terraform init
-        terraform plan
+        sleep 5
         """
 
             }
@@ -52,7 +49,7 @@ pipeline {
             steps {
                 echo "Starting UAT ENVIRONMENT TESTS"
                 sh "sleep 5"
-                //sh "bash -x ./test/demo.sh"
+                sh "bash -x ./test/demo.sh"
 
             }
         }
