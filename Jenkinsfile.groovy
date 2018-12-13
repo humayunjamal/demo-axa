@@ -52,7 +52,7 @@ pipeline {
             steps {
                 echo "Starting UAT ENVIRONMENT TESTS"
                 sh "sleep 5"
-                sh "bash -x ./test/demo.sh"
+                //sh "bash -x ./test/demo.sh"
 
             }
         }
@@ -64,7 +64,8 @@ pipeline {
                 sh """
         pwd
         ls -ltrh
-        ./deploy.sh
+        ecs-deploy -c Demo-Cluster -n demo-service -to latest -i demo-service --region eu-west-1 
+
         """
             }
         }
